@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do Life Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ============================================================
+       App Header
+       ============================================================ -->
+  <header class="app-header">
+    <h1>To-Do Life Dashboard</h1>
+    <button id="btn-theme-toggle" class="btn-theme-toggle" type="button" aria-label="Toggle theme">
+      🌙 Dark Mode
+    </button>
+  </header>
+
+  <!-- ============================================================
+       Main Content
+       ============================================================ -->
+  <main class="app-main">
+    <div class="dashboard-grid">
+
+      <!-- ========================================================
+           Panel 1: Greeting
+           ======================================================== -->
+      <section class="panel" aria-labelledby="greeting-panel-title">
+        <h2 class="panel-title" id="greeting-panel-title">Greeting</h2>
+
+        <p id="clock-time" class="clock-time" aria-live="polite" aria-label="Current time">00:00:00</p>
+        <p id="clock-date" class="clock-date">Monday, 1 January 2025</p>
+        <p id="greeting-text" class="greeting-text">Hello!</p>
+
+        <form id="name-form" class="name-form" novalidate>
+          <div class="input-group">
+            <label for="name-input" class="sr-only">Your name</label>
+            <input
+              type="text"
+              id="name-input"
+              placeholder="Enter your name…"
+              maxlength="30"
+              autocomplete="off"
+              aria-describedby="name-error"
+            />
+            <span id="name-error" class="error" role="alert" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="btn-primary">Save</button>
+        </form>
+      </section>
+
+      <!-- ========================================================
+           Panel 2: Focus Timer
+           ======================================================== -->
+      <section class="panel" aria-labelledby="timer-panel-title">
+        <h2 class="panel-title" id="timer-panel-title">Focus Timer</h2>
+
+        <p id="timer-display" class="timer-display" aria-live="polite" aria-label="Timer">25:00</p>
+
+        <div class="timer-controls">
+          <button id="btn-start" class="btn-primary" type="button">▶ Start</button>
+          <button id="btn-stop" class="btn-secondary" type="button" disabled>⏸ Stop</button>
+          <button id="btn-reset" class="btn-secondary" type="button">↺ Reset</button>
+        </div>
+
+        <div id="timer-notification" class="timer-notification" role="status" aria-live="polite">
+          🎉 Time's up! Great work!
+        </div>
+
+        <form id="duration-form" class="duration-form" novalidate>
+          <div class="input-group">
+            <label for="duration-input">Duration (minutes)</label>
+            <input
+              type="number"
+              id="duration-input"
+              min="1"
+              max="120"
+              value="25"
+              aria-describedby="duration-error"
+            />
+            <span id="duration-error" class="error" role="alert" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="btn-secondary">Set</button>
+        </form>
+      </section>
+
+      <!-- ========================================================
+           Panel 3: To-Do List
+           ======================================================== -->
+      <section class="panel" aria-labelledby="todo-panel-title">
+        <h2 class="panel-title" id="todo-panel-title">To-Do List</h2>
+
+        <form id="task-form" class="task-input-form" novalidate>
+          <div class="input-group">
+            <label for="task-input" class="sr-only">New task</label>
+            <input
+              type="text"
+              id="task-input"
+              placeholder="Add a new task…"
+              autocomplete="off"
+              aria-describedby="task-error"
+            />
+            <span id="task-error" class="error" role="alert" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="btn-primary">Add</button>
+        </form>
+
+        <div class="sort-row">
+          <label for="sort-select">Sort by:</label>
+          <select id="sort-select" aria-label="Sort tasks">
+            <option value="default">Default</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+            <option value="completedLast">Incomplete First</option>
+            <option value="completedFirst">Completed First</option>
+          </select>
+        </div>
+
+        <ul id="task-list" class="task-list" aria-label="Task list" aria-live="polite">
+          <!-- Tasks rendered by app.js -->
+        </ul>
+      </section>
+
+      <!-- ========================================================
+           Panel 4: Quick Links
+           ======================================================== -->
+      <section class="panel" aria-labelledby="links-panel-title">
+        <h2 class="panel-title" id="links-panel-title">Quick Links</h2>
+
+        <form id="link-form" class="link-input-form" novalidate>
+          <div class="input-group">
+            <label for="link-label-input">Label</label>
+            <input
+              type="text"
+              id="link-label-input"
+              placeholder="e.g. GitHub"
+              autocomplete="off"
+              aria-describedby="link-label-error"
+            />
+            <span id="link-label-error" class="error" role="alert" aria-live="polite"></span>
+          </div>
+          <div class="input-group">
+            <label for="link-url-input">URL</label>
+            <input
+              type="url"
+              id="link-url-input"
+              placeholder="e.g. https://github.com"
+              autocomplete="off"
+              aria-describedby="link-url-error"
+            />
+            <span id="link-url-error" class="error" role="alert" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="btn-primary">Add</button>
+        </form>
+
+        <div id="links-container" class="links-container" aria-label="Quick links" aria-live="polite">
+          <!-- Links rendered by app.js -->
+        </div>
+      </section>
+
+    </div><!-- /.dashboard-grid -->
+  </main>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
